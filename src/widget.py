@@ -13,6 +13,11 @@ def mask_account_card(card_or_account: str) -> str:
         return "**" + card_or_account_number[-4:]
 
 
+def get_date(full_date: str) -> str:
+    """Возвращает дату в формате дд.мм.гггг"""
+    pass
+
+
 if __name__ == '__main__':
     card_or_account = input()
     print(mask_account_card(card_or_account))
