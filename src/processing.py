@@ -5,7 +5,7 @@ def filter_by_state(info_about_operation: Iterable[list], state: str = "EXECUTED
     """Возвращает новый список по заданному ключу"""
     new_list = []
     for key in info_about_operation:
-        if key["state"] == state:
+        if key.get("state") == state:
             new_list.append(key)
     return new_list
 
