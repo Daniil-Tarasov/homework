@@ -1,3 +1,5 @@
+from collections.abc import Callable
+
 import pytest
 
 from src.widget import get_date, mask_account_card
@@ -15,11 +17,11 @@ from src.widget import get_date, mask_account_card
         ("73654108430135874305", "7365 41** **** 4305"),
     ],
 )
-def test_mask_account_card(card_or_account, type_and_mask_number):
+def test_mask_account_card(card_or_account: str, type_and_mask_number: str) -> None:
     assert mask_account_card(card_or_account) == type_and_mask_number
 
 
-def test_get_date(empty_date):
+def test_get_date(empty_date: Callable) -> None:
     assert get_date("2024-03-11T02:26:18.671407") == "11.03.2024"
 
     assert get_date("2005-08-09") == "09.08.2005"

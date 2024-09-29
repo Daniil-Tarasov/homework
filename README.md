@@ -42,3 +42,7 @@ print(filter_by_state(список_ваших_операций, статус)
 ```
 print(sort_by_date(список_ваших_операций, True по убыванию/False - по возрастанию)
 ```
+
+## Тесты
+
+Coverage code = 93 %
