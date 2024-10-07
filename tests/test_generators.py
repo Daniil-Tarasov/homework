@@ -5,7 +5,7 @@ import pytest
 from src.generators import card_number_generator, filter_by_currency, transaction_descriptions
 
 
-def test_filter_by_currency(transaction_list: Callable) -> None:
+def test_filter_by_currency(transaction_list: list[dict]) -> None:
     generator = filter_by_currency(transaction_list, "USD")
     assert next(generator) == {
         "id": 939719570,
