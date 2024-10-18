@@ -1,7 +1,7 @@
 import json
 
 
-def get_data_about_financial_transactions(path_to_the_file):
+def get_data_about_financial_transactions(path_to_the_file: str) -> list:
     """Функция, которая возвращает список словарей с данными о финансовых транзакциях"""
     try:
         with open(path_to_the_file, encoding="utf-8") as file:
@@ -20,7 +20,7 @@ def get_data_about_financial_transactions(path_to_the_file):
         with open(path_to_the_file, encoding="utf-8") as file:
             operations = json.load(file)
 
-            if type(operations) != list:
+            if type(operations) is not list:
 
                 return []
 
