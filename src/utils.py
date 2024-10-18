@@ -6,14 +6,24 @@ def get_data_about_financial_transactions(path_to_the_file):
     try:
         with open(path_to_the_file, encoding="utf-8") as file:
             json.load(file)
+
     except ValueError:
+
         return []
+
     except FileNotFoundError:
+
         return []
+
     else:
+
         with open(path_to_the_file, encoding="utf-8") as file:
             operations = json.load(file)
+
             if type(operations) != list:
+
                 return []
+
             else:
+
                 return operations

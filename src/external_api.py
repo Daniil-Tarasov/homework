@@ -4,6 +4,7 @@ import requests
 
 
 def get_amount_in_rub(transaction):
+    """Функция, которая конвертирует валюты из USD и EUR в рубли"""
     load_dotenv()
     api_key = os.getenv('API_KEY')
     amount = transaction['operationAmount']['amount']
@@ -12,15 +13,12 @@ def get_amount_in_rub(transaction):
     headers = {
         'apikey': api_key
     }
+    url = f'https://api.apilayer.com/exchangerates_data/convert?to={to}&from={from_convert}&amount={amount}'
     if from_convert == 'RUB':
-        return amount
-    elif from_convert == 'USD':
-        url = f'https://api.apilayer.com/exchangerates_data/convert?to={to}&from={from_convert}&amount={amount}'
+
+        return float(amount)
+
+    else:
         response = requests.get(url, headers=headers)
-        result = response.json()
-        return result['result']
-    elif from_convert == 'EUR':
-        url = f'https://api.apilayer.com/exchangerates_data/convert?to={to}&from={from_convert}&amount={amount}'
-        response = requests.get(url, headers=headers)
-        result = response.json()
-        return result['result']
+
+        return response.json()['result']
