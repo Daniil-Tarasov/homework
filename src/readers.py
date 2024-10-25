@@ -25,21 +25,16 @@ def get_data_from_csv(path_to_the_file: str) -> list:
 def get_data_from_excel(path_to_the_file: str) -> list:
     """Функция, которая возвращает данные о финансовых транзакциях из файла excel"""
     try:
-        with open(path_to_the_file, encoding="utf-8") as file:
-            pd.read_excel(file)
+        pd.read_excel(path_to_the_file)
 
-#    except ValueError:
+    except ValueError:
 
-#        return []
+        return []
 
     except FileNotFoundError:
 
         return []
 
     else:
-
-        with open(path_to_the_file, encoding="utf-8") as file:
-            operations = pd.read_excel(file)
-            return operations.to_dict(orient='records')
-
-print(get_data_from_excel('../data/transactions_excel.xlsx'))
+        operations = pd.read_excel(path_to_the_file)
+        return operations.to_dict(orient='records')
