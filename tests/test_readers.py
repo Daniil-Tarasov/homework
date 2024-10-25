@@ -1,45 +1,42 @@
 from typing import Any
 from unittest.mock import mock_open, patch
+
 import pandas as pd
 
 from src.readers import get_data_from_csv, get_data_from_excel
 
 
-@patch("builtins.open", new_callable=mock_open, read_data='amount;currency\n100;USD')
-@patch('pandas.read_csv')
-def test_get_data_from_csv(mock_read_csv, mock_file: Any) -> None:
-    mock_read_csv.return_value = pd.DataFrame({
-        'amount': [100],
-        'currency': ['USD']
-    })
-    transactions = get_data_from_csv('data/transactions.csv')
+@patch("builtins.open", new_callable=mock_open, read_data="amount;currency\n100;USD")
+@patch("pandas.read_csv")
+def test_get_data_from_csv(mock_read_csv: Any, mock_file: Any) -> None:
+    mock_read_csv.return_value = pd.DataFrame({"amount": [100], "currency": ["USD"]})
+    transactions = get_data_from_csv("data/transactions.csv")
     assert transactions == [{"amount": 100, "currency": "USD"}]
 
 
 @patch("builtins.open", side_effect=FileNotFoundError)
 def test_not_found_csv(mock_file: Any) -> None:
-    transactions = get_data_from_csv('data/transactions.csv')
+    transactions = get_data_from_csv("data/transactions.csv")
     assert transactions == []
 
 
 @patch("builtins.open", new_callable=mock_open, read_data="")
-@patch('pandas.read_csv')
-def test_value_error_csv(mock_read_csv, mock_file: Any) -> None:
+@patch("pandas.read_csv")
+def test_value_error_csv(mock_read_csv: Any, mock_file: Any) -> None:
     mock_read_csv.side_effect = ValueError
-    transactions = get_data_from_csv('data/transactions.csv')
+    transactions = get_data_from_csv("data/transactions.csv")
     assert transactions == []
 
-@patch("builtins.open", new_callable=mock_open, read_data=b'\x3c\x80\x00\x00\x00')
-@patch('pandas.read_excel')
-def test_get_data_from_excel(mock_read_excel, mock_file: Any) -> None:
-    mock_read_excel.return_value = pd.DataFrame({
-        'amount': [100],
-        'currency': ['USD']
-    })
-    transactions = get_data_from_excel('data/transactions.xlsx')
+
+@patch("builtins.open", new_callable=mock_open, read_data=b"\x3c\x80\x00\x00\x00")
+@patch("pandas.read_excel")
+def test_get_data_from_excel(mock_read_excel: Any, mock_file: Any) -> None:
+    mock_read_excel.return_value = pd.DataFrame({"amount": [100], "currency": ["USD"]})
+    transactions = get_data_from_excel("data/transactions.xlsx")
     assert transactions == [{"amount": 100, "currency": "USD"}]
+
 
 @patch("builtins.open", side_effect=FileNotFoundError)
 def test_not_found_excel(mock_file: Any) -> None:
-    transactions = get_data_from_excel('data/transactions.xlsx')
+    transactions = get_data_from_excel("data/transactions.xlsx")
     assert transactions == []

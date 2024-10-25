@@ -18,8 +18,8 @@ def get_data_from_csv(path_to_the_file: str) -> list:
     else:
 
         with open(path_to_the_file, encoding="utf-8") as file:
-            operations = pd.read_csv(file, delimiter=';')
-            return operations.to_dict(orient='records')
+            operations = pd.read_csv(file, delimiter=";")
+            return operations.to_dict(orient="records")
 
 
 def get_data_from_excel(path_to_the_file: str) -> list:
@@ -37,4 +37,4 @@ def get_data_from_excel(path_to_the_file: str) -> list:
 
     else:
         operations = pd.read_excel(path_to_the_file)
-        return operations.to_dict(orient='records')
+        return operations.to_dict(orient="records")
