@@ -5,7 +5,7 @@ def mask_account_card(card_or_account: str) -> str:
     """Возвращает строку с замаскированным номером"""
     card_or_account_number = ""
     type_of_operation = ""
-    for i in card_or_account:
+    for i in str(card_or_account):
         if i.isdigit():
             card_or_account_number += i
         else:

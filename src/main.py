@@ -6,7 +6,8 @@ from src.utils import get_data_about_financial_transactions
 from src.widget import get_date, mask_account_card
 
 
-def file_selection():
+def file_selection() -> list | str:
+    """Возвращает данные из файла, выбранного типа"""
     user_input = input()
     if user_input == "1":
         print("Для обработки выбран JSON-файл.")
@@ -21,12 +22,13 @@ def file_selection():
         print("Введён некорректный номер")
 
 
-def choice_state(data):
+def choice_state(data: list) -> list:
+    """Фильтрация данных по выбранному статусу"""
     while True:
         print('Введите статус, по которому необходимо выполнить фильтрацию.'
           'Доступные для фильтровки статусы: EXECUTED, CANCELED, PENDING')
         user_input_2 = input()
-        if user_input_2 == "EXECUTED" or user_input_2 == "CANCELED" or user_input_2 == "PENDING":
+        if user_input_2.upper() == "EXECUTED" or user_input_2.upper() == "CANCELED" or user_input_2.upper() == "PENDING":
             print(f'Операции отфильтрованы по статусу "{user_input_2}"')
             data = filter_by_state(data, user_input_2.upper())
             break
@@ -35,7 +37,8 @@ def choice_state(data):
     return data
 
 
-def choice_sort_by_date(data):
+def choice_sort_by_date(data: list) -> list:
+    """Сортировка по дате"""
     choice_sort = input()
     if choice_sort.lower() == 'да':
         print("Отсортировать по возрастанию или по убыванию?")
@@ -49,14 +52,16 @@ def choice_sort_by_date(data):
     return data
 
 
-def sort_by_rub(data):
+def sort_by_rub(data: list) -> list:
+    """Фильтрация по валюте"""
     rub_transaction = input()
     if rub_transaction.lower() == 'да':
         data = filter_by_currency(data, "RUB")
     return list(data)
 
 
-def filter_by_world(data, sort_by_word):
+def filter_by_world(data: list, sort_by_word: str) -> list:
+    """Фильтрация по строке"""
     if sort_by_word.lower() == 'да':
         print('Введите слово:')
         string_to_search = input()
@@ -64,7 +69,8 @@ def filter_by_world(data, sort_by_word):
     return data
 
 
-def ending_result(data):
+def ending_result(data: list) -> None:
+    """Вычисление и вывод результатов по полученному списку транзакций"""
     if len(data) == 0:
         print("Не найдено ни одной транзакции, подходящей под ваши условия фильтрации")
     else:
@@ -93,7 +99,8 @@ def ending_result(data):
             print(f"{mask_to} Сумма: {amount} {currency}")
 
 
-def main():
+def main() -> None:
+    """Возвращает список транзакций по выбранным условиям"""
     print("""Привет! Добро пожаловать в программу работы с банковскими транзакциями.
     Выберите необходимый пункт меню:
     1. Получить информацию о транзакциях из JSON-файла
