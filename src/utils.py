@@ -1,9 +1,15 @@
 import json
 import logging
+import os
+
+current_dir = os.path.dirname(os.path.abspath(__file__))
+
+rel_file_path = os.path.join(current_dir, "../logs/masks.log")
+abs_file_path = os.path.abspath(rel_file_path)
 
 logger = logging.getLogger("utils")
 logger.setLevel(logging.DEBUG)
-file_handler = logging.FileHandler("../logs/utils.log", "w", encoding="utf-8")
+file_handler = logging.FileHandler(abs_file_path, "w", encoding="utf-8")
 file_formatter = logging.Formatter("%(asctime)s - %(filename)s %(levelname)s: %(message)s")
 file_handler.setFormatter(file_formatter)
 logger.addHandler(file_handler)
