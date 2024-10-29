@@ -32,6 +32,6 @@ def test_card_number_generator(start: int, stop: int, num_card: str) -> None:
     assert next(generator) == num_card
 
 
-def test_filt_by_crcy_error():
+def test_filter_by_currency_error() -> None:
     generator = filter_by_currency([{"currency_code": "USD"}], "USD")
     assert next(generator) == {"currency_code": "USD"}

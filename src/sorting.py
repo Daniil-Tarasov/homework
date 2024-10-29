@@ -4,7 +4,7 @@ from collections import Counter
 
 def get_transactions_on_search_bar(data: list[dict], search_bar: str) -> list[dict]:
     """Возвращает список словарей с данными о банковских операциях по строке поиска"""
-    pattern = rf'{search_bar}'
+    pattern = rf"{search_bar}"
     transactions = []
     for transaction in data:
         for tr in transaction.values():
@@ -21,4 +21,4 @@ def count_operations(data: list[dict], categories: list) -> dict:
         if str(transaction.get("description")).lower() in common_categories:
             operations_to_count.append(transaction.get("description"))
     result = Counter(operations_to_count)
-    return result
+    return dict(result)

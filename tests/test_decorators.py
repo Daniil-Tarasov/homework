@@ -13,7 +13,7 @@ def test_log_1(capsys: Any) -> None:
     assert captured.out == "my_function ok\nResult: 3\n"
 
 
-def test_log_error(capsys: Any) -> None:
+def test_log_error_1(capsys: Any) -> None:
     @log(None)
     def my_function(x: int, y: int) -> int:
         return x + y
@@ -24,7 +24,7 @@ def test_log_error(capsys: Any) -> None:
 
 
 def test_log_file(capsys: Any) -> None:
-    @log('log.log')
+    @log("log.log")
     def my_function(x: int, y: int) -> int:
         return x + y
 
@@ -32,8 +32,9 @@ def test_log_file(capsys: Any) -> None:
     captured = capsys.readouterr()
     assert captured.out == ""
 
-def test_log_error(capsys: Any) -> None:
-    @log('log.log')
+
+def test_log_error_2(capsys: Any) -> None:
+    @log("log.log")
     def my_function(x: int, y: int) -> int:
         return x + y
 

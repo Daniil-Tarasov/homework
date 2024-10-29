@@ -11,24 +11,30 @@ def file_selection() -> list | str:
     user_input = input()
     if user_input == "1":
         print("Для обработки выбран JSON-файл.")
-        return get_data_about_financial_transactions('../data/operations.json')
+        return get_data_about_financial_transactions("../data/operations.json")
     elif user_input == "2":
         print("Для обработки выбран CSV-файл")
         return get_data_from_csv("../data/transactions.csv")
-    elif user_input == '3':
+    elif user_input == "3":
         print("Для обработки выбран EXCEL-файл")
-        return get_data_from_excel('../data/transactions_excel.xlsx')
+        return get_data_from_excel("../data/transactions_excel.xlsx")
     else:
-        print("Введён некорректный номер")
+        return "Введён некорректный номер"
 
 
 def choice_state(data: list) -> list:
     """Фильтрация данных по выбранному статусу"""
     while True:
-        print('Введите статус, по которому необходимо выполнить фильтрацию.'
-          'Доступные для фильтровки статусы: EXECUTED, CANCELED, PENDING')
+        print(
+            "Введите статус, по которому необходимо выполнить фильтрацию."
+            "Доступные для фильтровки статусы: EXECUTED, CANCELED, PENDING"
+        )
         user_input_2 = input()
-        if user_input_2.upper() == "EXECUTED" or user_input_2.upper() == "CANCELED" or user_input_2.upper() == "PENDING":
+        if (
+            user_input_2.upper() == "EXECUTED"
+            or user_input_2.upper() == "CANCELED"
+            or user_input_2.upper() == "PENDING"
+        ):
             print(f'Операции отфильтрованы по статусу "{user_input_2}"')
             data = filter_by_state(data, user_input_2.upper())
             break
@@ -40,10 +46,10 @@ def choice_state(data: list) -> list:
 def choice_sort_by_date(data: list) -> list:
     """Сортировка по дате"""
     choice_sort = input()
-    if choice_sort.lower() == 'да':
+    if choice_sort.lower() == "да":
         print("Отсортировать по возрастанию или по убыванию?")
         sort_up_or_lower = input()
-        if sort_up_or_lower.lower() == 'по возрастанию':
+        if sort_up_or_lower.lower() == "по возрастанию":
             is_reverse = False
             data = sort_by_date(data, is_reverse)
         else:
@@ -55,15 +61,15 @@ def choice_sort_by_date(data: list) -> list:
 def sort_by_rub(data: list) -> list:
     """Фильтрация по валюте"""
     rub_transaction = input()
-    if rub_transaction.lower() == 'да':
+    if rub_transaction.lower() == "да":
         data = filter_by_currency(data, "RUB")
     return list(data)
 
 
 def filter_by_world(data: list, sort_by_word: str) -> list:
     """Фильтрация по строке"""
-    if sort_by_word.lower() == 'да':
-        print('Введите слово:')
+    if sort_by_word.lower() == "да":
+        print("Введите слово:")
         string_to_search = input()
         data = get_transactions_on_search_bar(data, string_to_search)
     return data
@@ -101,22 +107,25 @@ def ending_result(data: list) -> None:
 
 def main() -> None:
     """Возвращает список транзакций по выбранным условиям"""
-    print("""Привет! Добро пожаловать в программу работы с банковскими транзакциями.
+    print(
+        """Привет! Добро пожаловать в программу работы с банковскими транзакциями.
     Выберите необходимый пункт меню:
     1. Получить информацию о транзакциях из JSON-файла
     2. Получить информацию о транзакциях из CSV-файла
-    3. Получить информацию о транзакциях из XLSX-файла""")
+    3. Получить информацию о транзакциях из XLSX-файла"""
+    )
     data = file_selection()
     data = choice_state(data)
-    print('Отсортировать операции по дате? Да/Нет')
+    print("Отсортировать операции по дате? Да/Нет")
     data = choice_sort_by_date(data)
     print("Выводить только рублевые транзакции? Да/Нет")
     data = sort_by_rub(data)
     print("Отфильтровать список транзакций по определенному слову в описании? Да/Нет")
     sort_by_word = input()
     data = filter_by_world(data, sort_by_word)
-    print('Распечатываю итоговый список транзакций...')
+    print("Распечатываю итоговый список транзакций...")
     ending_result(data)
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     main()

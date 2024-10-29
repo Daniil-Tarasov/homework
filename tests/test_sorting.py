@@ -1,10 +1,11 @@
 from collections import Counter
 
-from src.sorting import get_transactions_on_search_bar, count_operations
+from src.sorting import count_operations, get_transactions_on_search_bar
 
 
-def test_get_transactions_on_search_bar(transaction_list):
-    assert get_transactions_on_search_bar(transaction_list, 'CANCELED') == [{
+def test_get_transactions_on_search_bar(transaction_list: list) -> None:
+    assert get_transactions_on_search_bar(transaction_list, "CANCELED") == [
+        {
             "id": 594226727,
             "state": "CANCELED",
             "date": "2018-09-12T21:27:25.241689",
@@ -16,5 +17,5 @@ def test_get_transactions_on_search_bar(transaction_list):
     ]
 
 
-def test_count_operations(transaction_list):
-    assert count_operations(transaction_list, ['Перевод со счета на счет']) == Counter({'Перевод со счета на счет': 2})
+def test_count_operations(transaction_list: list) -> None:
+    assert count_operations(transaction_list, ["Перевод со счета на счет"]) == {"Перевод со счета на счет": 2}
