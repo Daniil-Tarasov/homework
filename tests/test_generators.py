@@ -30,3 +30,8 @@ def test_transaction_descriptions(transaction_list: Callable) -> None:
 def test_card_number_generator(start: int, stop: int, num_card: str) -> None:
     generator = card_number_generator(start, stop)
     assert next(generator) == num_card
+
+
+def test_filter_by_currency_error() -> None:
+    generator = filter_by_currency([{"currency_code": "USD"}], "USD")
+    assert next(generator) == {"currency_code": "USD"}

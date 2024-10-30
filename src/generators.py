@@ -6,9 +6,12 @@ def filter_by_currency(info_about_transactions: list[dict], currency: str) -> It
 
     if len(info_about_transactions) > 0:
         for i in info_about_transactions:
-            if i["operationAmount"]["currency"]["name"] == currency:
-                yield i
-    yield
+            try:
+                if i["operationAmount"]["currency"]["code"] == currency:
+                    yield i
+            except KeyError:
+                if i["currency_code"] == currency:
+                    yield i
 
 
 def transaction_descriptions(info_about_transactions: list[dict]) -> Iterator:
